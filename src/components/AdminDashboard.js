@@ -55,6 +55,7 @@ import './AdminDashboard.css';
 
 function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('customer');
+  const [userInfo, setUserInfo] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,6 +64,8 @@ function AdminDashboard() {
 
     if (!token || user?.role?.toLowerCase() !== 'admin') {
       navigate('/login');
+    } else {
+      setUserInfo(user); // Set user info for rendering
     }
   }, [navigate]);
 
@@ -73,32 +76,37 @@ function AdminDashboard() {
   };
 
   return (
-    <div className="admin-dashboard">
-      <div className="dashboard-header">
-        <h2>Admin Dashboard</h2>
-        <button className="logout-btn" onClick={handleLogout}>Logout</button>
-      </div>
+      <div className="admin-dashboard">
+        <div className="dashboard-header">
+          <h2>Admin Dashboard</h2>
+          {userInfo && (
+              <div className="user-info">
+                <p>Welcome, {userInfo.name} ({userInfo.username})</p>
+              </div>
+          )}
+          <button className="logout-btn" onClick={handleLogout}>Logout</button>
+        </div>
 
-      <div className="tab-buttons">
-        <button
-          className={activeTab === 'customer' ? 'active' : ''}
-          onClick={() => setActiveTab('customer')}
-        >
-          Customer Dashboard
-        </button>
-        <button
-          className={activeTab === 'room' ? 'active' : ''}
-          onClick={() => setActiveTab('room')}
-        >
-          Room Dashboard
-        </button>
-      </div>
+        <div className="tab-buttons">
+          <button
+              className={activeTab === 'customer' ? 'active' : ''}
+              onClick={() => setActiveTab('customer')}
+          >
+            Customer Dashboard
+          </button>
+          <button
+              className={activeTab === 'room' ? 'active' : ''}
+              onClick={() => setActiveTab('room')}
+          >
+            Room Dashboard
+          </button>
+        </div>
 
-      <div className="tab-content">
-        {activeTab === 'customer' && <CustomerDashboard />}
-        {activeTab === 'room' && <RoomDashboard />}
+        <div className="tab-content">
+          {activeTab === 'customer' && <CustomerDashboard />}
+          {activeTab === 'room' && <RoomDashboard />}
+        </div>
       </div>
-    </div>
   );
 }
 

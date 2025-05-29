@@ -1,11 +1,10 @@
-/* src/pages/ReservationDashboard.css */
 .reservation-container {
   max-width: 600px;
-  margin: 40px auto;
-  padding: 30px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
@@ -15,30 +14,47 @@
   gap: 15px;
 }
 
-.reservation-form input {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+.form-group {
+  display: flex;
+  flex-direction: column;
 }
 
-.reservation-form button {
+input {
   padding: 10px;
   font-size: 16px;
-  background-color: #007bff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+input:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.reservation-button {
+  padding: 10px;
+  background-color: #0056ff;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 16px;
 }
 
-.reservation-form button:hover {
-  background-color: #0056b3;
+.reservation-button:hover {
+  background-color: #218838;
 }
 
 .reservation-message {
   margin-top: 15px;
-  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+
+.reservation-message.success {
   color: #28a745;
+}
+
+.reservation-message.error {
+  color: #dc3545;
 }
