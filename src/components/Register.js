@@ -1,4 +1,3 @@
-// src/pages/Register.js
 import React, { useState } from 'react';
 import './Auth.css';
 import { useNavigate } from 'react-router-dom';

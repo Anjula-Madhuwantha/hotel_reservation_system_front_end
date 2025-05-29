@@ -25,8 +25,23 @@ function Login() {
 
       if (!res.ok) throw new Error('Login failed');
       const data = await res.json();
-      console.log('Login success:', data);
-      navigate('/'); // redirect to home or dashboard
+
+      // Save token and user info
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+      }
+      localStorage.setItem('user', JSON.stringify(data));
+
+      // Role-based redirect
+      const userRole = data.role?.toLowerCase();
+      if (userRole === 'admin') {
+        navigate('/admin-dashboard');
+      } else if (userRole === 'customer') {
+        navigate('/reservation-dashboard');
+      } else {
+        throw new Error('Unknown role');
+      }
+
     } catch (err) {
       setError(err.message);
     }
