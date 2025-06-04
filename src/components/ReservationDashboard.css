@@ -1,4 +1,4 @@
-.reservation-container {
+/* .reservation-container {
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
@@ -57,4 +57,82 @@ input:disabled {
 
 .reservation-message.error {
   color: #dc3545;
+} */
+
+
+
+/* new1 */
+
+.reservation-dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #f8fafc;
+  padding: 1.5rem;
+  border-right: 1px solid #e5e7eb;
+}
+
+.sidebar-btn {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.375rem;
+  background-color: #e5e7eb;
+  text-align: left;
+  transition: background-color 0.2s;
+}
+
+.sidebar-btn:hover {
+  background-color: #d1d5db;
+}
+
+.sidebar-btn.active {
+  background-color: #1a73e8;
+  color: white;
+}
+
+.content {
+  flex: 1;
+  padding: 2rem;
+  background-color: #ffffff;
+}
+
+.reservation-form {
+  max-width: 500px;
+}
+
+.input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  margin-top: 0.25rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: #1a73e8;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #1565c0;
+}
+
+.btn-danger {
+  background-color: #dc2626;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #b91c1c;
 }
