@@ -51,6 +51,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomerDashboard from './CustomerDashboard';
 import RoomDashboard from './RoomDashboard';
+import Reports from './Reports';   // Import Reports component
 import './AdminDashboard.css';
 
 function AdminDashboard() {
@@ -65,7 +66,7 @@ function AdminDashboard() {
     if (!token || user?.role?.toLowerCase() !== 'admin') {
       navigate('/login');
     } else {
-      setUserInfo(user); // Set user info for rendering
+      setUserInfo(user);
     }
   }, [navigate]);
 
@@ -76,37 +77,44 @@ function AdminDashboard() {
   };
 
   return (
-      <div className="admin-dashboard">
-        <div className="dashboard-header">
-          <h2>Admin Dashboard</h2>
-          {userInfo && (
-              <div className="user-info">
-                <p>Welcome, {userInfo.name} ({userInfo.username})</p>
-              </div>
-          )}
-          <button className="logout-btn" onClick={handleLogout}>Logout</button>
-        </div>
-
-        <div className="tab-buttons">
-          <button
-              className={activeTab === 'customer' ? 'active' : ''}
-              onClick={() => setActiveTab('customer')}
-          >
-            Customer Dashboard
-          </button>
-          <button
-              className={activeTab === 'room' ? 'active' : ''}
-              onClick={() => setActiveTab('room')}
-          >
-            Room Dashboard
-          </button>
-        </div>
-
-        <div className="tab-content">
-          {activeTab === 'customer' && <CustomerDashboard />}
-          {activeTab === 'room' && <RoomDashboard />}
-        </div>
+    <div className="admin-dashboard">
+      <div className="dashboard-header">
+        <h2>Admin Dashboard</h2>
+        {userInfo && (
+          <div className="user-info">
+            <p>Welcome, {userInfo.name} ({userInfo.username})</p>
+          </div>
+        )}
+        <button className="logout-btn" onClick={handleLogout}>Logout</button>
       </div>
+
+      <div className="tab-buttons">
+        <button
+          className={activeTab === 'customer' ? 'active' : ''}
+          onClick={() => setActiveTab('customer')}
+        >
+          Customer Dashboard
+        </button>
+        <button
+          className={activeTab === 'room' ? 'active' : ''}
+          onClick={() => setActiveTab('room')}
+        >
+          Room Dashboard
+        </button>
+        <button
+          className={activeTab === 'reports' ? 'active' : ''}
+          onClick={() => setActiveTab('reports')}
+        >
+          Reports
+        </button>
+      </div>
+
+      <div className="tab-content">
+        {activeTab === 'customer' && <CustomerDashboard />}
+        {activeTab === 'room' && <RoomDashboard />}
+        {activeTab === 'reports' && <Reports />}
+      </div>
+    </div>
   );
 }
 
