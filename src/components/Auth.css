@@ -1,4 +1,4 @@
-/* src/pages/Auth.css */
+/* src/pages/Auth.css
 .auth-container {
   max-width: 400px;
   margin: 40px auto;
@@ -55,4 +55,134 @@
 
 .auth-switch span:hover {
   color: #0056b3;
+} */
+
+
+
+/* new1 */
+
+
+.auth-container {
+  max-width: 400px;
+  margin: 40px auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.auth-form input,
+.auth-form select {
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-form input:focus,
+.auth-form select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.auth-form button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.auth-form button:hover:not(:disabled) {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+.auth-form button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.auth-error {
+  color: #d32f2f;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.auth-switch {
+  margin-top: 20px;
+  font-size: 0.95rem;
+  text-align: center;
+  color: #333;
+}
+
+.auth-switch button {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 0.95rem;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.auth-switch button:hover {
+  color: #0056b3;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .auth-container {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .auth-form input,
+  .auth-form select,
+  .auth-form button {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+}
+
+/* Accessibility */
+.auth-form input:invalid:focus,
+.auth-form select:invalid:focus {
+  border-color: #d32f2f;
+}
+
+.auth-form button:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+.auth-switch button:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
 }

@@ -62,6 +62,7 @@ import ReservationDashboard from './components/ReservationDashboard';
 import RoomDashboard from './components/RoomDashboard';
 import CustomerDashboard from './components/CustomerDashboard';
 import Reports from './components/Reports';
+import TravelDashboard from './components/TravelDashboard';
 import './App.css';
 
 function App() {
@@ -89,6 +90,7 @@ function App() {
             <Route path="/room-dashboard" element={<RoomDashboard />} />
             <Route path="/customer-dashboard" element={<CustomerDashboard />} />
             <Route path="/reports" element={<Reports />} />
+            <Route path="/travel-company-dashboard" element={<TravelDashboard />} />
           </Routes>
         </Router>
       )}
