@@ -24,6 +24,7 @@ const CustomerDashboard = () => {
     page: 0,
     size: 10,
   });
+  const [latestBill, setLatestBill] = useState(null);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -72,28 +73,28 @@ const CustomerDashboard = () => {
         setTotalPages(1);
       }
       toast.success('Reservations fetched successfully');
-    } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to fetch reservations');
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Failed to fetch reservations');
     } finally {
       setLoading(false);
     }
   };
 
   // Form input handlers
-  const handleCheckInChange = (e) => {
-    setCheckInForm({ ...checkInForm, [e.target.name]: e.target.value });
+  const handleCheckInChange = ({ target }) => {
+    setCheckInForm({ ...checkInForm, [target.name]: target.value });
   };
 
-  const handleCheckOutChange = (e) => {
-    setCheckOutForm({ ...checkOutForm, [e.target.name]: e.target.value });
+  const handleCheckOutChange = ({ target }) => {
+    setCheckOutForm({ ...checkOutForm, [target.name]: target.value });
   };
 
-  const handleCancelChange = (e) => {
-    setCancelId(e.target.value);
+  const handleCancelChange = ({ target }) => {
+    setCancelId(target.value);
   };
 
-  const handleFilterChange = (e) => {
-    setFilterForm({ ...filterForm, [e.target.name]: e.target.value });
+  const handleFilterChange = ({ target }) => {
+    setFilterForm({ ...filterForm, [target.name]: target.value });
   };
 
   const handlePageChange = (newPage) => {
@@ -145,8 +146,8 @@ const CustomerDashboard = () => {
       toast.success('Check-in successful');
       resetCheckInForm();
       fetchReservations(JSON.parse(localStorage.getItem('user')));
-    } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to check in');
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Failed to check in');
     } finally {
       setLoading(false);
     }
@@ -161,7 +162,7 @@ const CustomerDashboard = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      await axios.post(
+      const response = await axios.post(
         'http://localhost:8040/api/reservations/check-out',
         {
           ...checkOutForm,
@@ -174,11 +175,13 @@ const CustomerDashboard = () => {
           },
         }
       );
-      toast.success('Check-out successful');
+      const billingResponse = response.data;
+      setLatestBill(billingResponse);
+      toast.success(`Check-out successful. Bill ID: ${billingResponse.id}, Amount: $${billingResponse.amount.toFixed(2)}`);
       resetCheckOutForm();
       fetchReservations(JSON.parse(localStorage.getItem('user')));
-    } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to check out');
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Failed to check out');
     } finally {
       setLoading(false);
     }
@@ -200,8 +203,8 @@ const CustomerDashboard = () => {
       toast.success('Reservation cancelled successfully');
       setCancelId('');
       fetchReservations(JSON.parse(localStorage.getItem('user')));
-    } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to cancel reservation');
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Failed to cancel reservation');
     } finally {
       setLoading(false);
     }
@@ -223,7 +226,7 @@ const CustomerDashboard = () => {
         return (
           <div>
             {isAdmin && (
-              <form onSubmit={handleFilterSubmit} className="reservation-form mb-4">
+              <form onSubmit={handleFilterSubmit} className="reservation-form mb-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   <div>
                     <label className="block text-sm font-medium">Status</label>
@@ -283,7 +286,7 @@ const CustomerDashboard = () => {
                 </div>
               </form>
             )}
-            <button onClick={() => fetchReservations(user)} className="btn btn-primary mb-4">
+            <button onClick={() => fetchReservations(user)} className="btn btn-primary mb-6">
               Refresh Reservations
             </button>
             {reservations.length > 0 ? (
@@ -363,51 +366,84 @@ const CustomerDashboard = () => {
         );
       case 'checkOut':
         return (
-          <form onSubmit={handleCheckOut} className="reservation-form">
-            <div className="mb-4">
-              <label className="block text-sm font-medium">Reservation ID</label>
-              <input
-                name="reservationId"
-                placeholder="Reservation ID"
-                value={checkOutForm.reservationId}
-                onChange={handleCheckOutChange}
-                className="input"
-                required
-                type="number"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium">Payment Method</label>
-              <select
-                name="paymentMethod"
-                value={checkOutForm.paymentMethod}
-                onChange={handleCheckOutChange}
-                className="input"
-              >
-                {PAYMENT_METHODS.map((method) => (
-                  <option key={method} value={method}>
-                    {method.replace('_', ' ')}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium">Optional Charges</label>
-              <input
-                name="optionalCharges"
-                type="number"
-                placeholder="Optional Charges"
-                value={checkOutForm.optionalCharges}
-                onChange={handleCheckOutChange}
-                className="input"
-                min="0"
-                step="0.01"
-              />
-            </div>
-            <button type="submit" className="btn btn-primary">
-              Check Out
-            </button>
-          </form>
+          <div>
+            <form onSubmit={handleCheckOut} className="reservation-form mb-6">
+              <div className="mb-4">
+                <label className="block text-sm font-medium">Reservation ID</label>
+                <input
+                  name="reservationId"
+                  placeholder="Reservation ID"
+                  value={checkOutForm.reservationId}
+                  onChange={handleCheckOutChange}
+                  className="input"
+                  required
+                  type="number"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium">Payment Method</label>
+                <select
+                  name="paymentMethod"
+                  value={checkOutForm.paymentMethod}
+                  onChange={handleCheckOutChange}
+                  className="input"
+                >
+                  {PAYMENT_METHODS.map((method) => (
+                    <option key={method} value={method}>
+                      {method.replace('_', ' ')}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium">Optional Charges</label>
+                <input
+                  name="optionalCharges"
+                  type="number"
+                  placeholder="Optional Charges"
+                  value={checkOutForm.optionalCharges}
+                  onChange={handleCheckOutChange}
+                  className="input"
+                  min="0"
+                  step="0.01"
+                />
+              </div>
+              <button type="submit" className="btn btn-primary">
+                Check Out
+              </button>
+            </form>
+            {latestBill && (
+              <div className="reservation-form">
+                <h3 className="text-lg font-bold mb-4">Bill Details</h3>
+                <div className="overflow-x-auto">
+                  <table className="table-auto w-full">
+                    <thead>
+                      <tr className="bg-gray-100">
+                        <th className="px-4 py-2">Bill ID</th>
+                        <th className="px-4 py-2">Reservation ID</th>
+                        <th className="px-4 py-2">Amount</th>
+                        <th className="px-4 py-2">Payment Method</th>
+                        <th className="px-4 py-2">Billing Date</th>
+                        <th className="px-4 py-2">Status</th>
+                        <th className="px-4 py-2">Optional Charges</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b">
+                        <td className="px-4 py-2">{latestBill.id}</td>
+                        <td className="px-4 py-2">{latestBill.reservationId}</td>
+                        <td className="px-4 py-2">${latestBill.amount.toFixed(2)}</td>
+                        <td className="px-4 py-2">{latestBill.paymentMethod.replace('_', ' ')}</td>
+                        <td className="px-4 py-2">{latestBill.billingDate}</td>
+                        <td className="px-4 py-2">{latestBill.status}</td>
+                        <td className="px-4 py-2">${latestBill.optionalCharges ? latestBill.optionalCharges.toFixed(2) : '0.00'}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+          </div>
         );
       case 'cancel':
         return (
@@ -474,4 +510,3 @@ const CustomerDashboard = () => {
 };
 
 export default CustomerDashboard;
-
