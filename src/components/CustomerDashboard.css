@@ -1,0 +1,126 @@
+.customer-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f4f7fa;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #2c3e50;
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-btn {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #34495e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.sidebar-btn:hover {
+  background-color: #1abc9c;
+}
+
+.sidebar-btn.active {
+  background-color: #1abc9c;
+  font-weight: bold;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.reservation-form {
+  max-width: 800px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.btn-primary {
+  background-color: #1abc9c;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #16a085;
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+}
+
+.btn-secondary {
+  background-color: #7f8c8d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #6d7273;
+}
+
+.btn-secondary:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.table-auto {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table-auto th,
+.table-auto td {
+  padding: 12px;
+  text-align: left;
+}
+
+.table-auto th {
+  background-color: #1abc9c;
+  color: white;
+}
+
+.table-auto tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table-auto tr:hover {
+  background-color: #e8f4f8;
+}
+
+.grid {
+  display: grid;
+}
+
