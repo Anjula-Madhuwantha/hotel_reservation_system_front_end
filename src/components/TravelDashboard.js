@@ -12,7 +12,7 @@ const TravelDashboard = () => {
     startDate: '',
     endDate: '',
     numberOfRooms: 1,
-    discountedRate: 0,
+    discountedRate: 10,
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
