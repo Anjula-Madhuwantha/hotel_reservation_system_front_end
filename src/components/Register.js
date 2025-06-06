@@ -108,7 +108,7 @@ function Register() {
               id="phone"
               name="phone"
               type="text"
-              placeholder="Enter phone number (e.g., +1234567890)"
+              placeholder="Enter phone number"
               value={form.phone}
               onChange={handleChange}
               className="form-input"
@@ -157,7 +157,7 @@ function Register() {
               aria-describedby="role-error"
             >
               <option value="CUSTOMER">Customer</option>
-              <option value="ADMIN">Admin</option>
+              {/* <option value="ADMIN">Admin</option> */}
               <option value="TRAVEL_COMPANY">Travel Agency</option>
             </select>
           </div>
